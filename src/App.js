@@ -12,7 +12,7 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <div className="App">
+    <div className="App w-screen ">
         <RouterProvider router={router}/>
     </div>
   );

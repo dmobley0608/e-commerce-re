@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavLink from "./NavLink";
 import { useDispatch, useSelector } from "react-redux";
-import { closeNav, toggleNav } from "../../store/navigationSlice";
+import { closeNav, toggleNav } from "../../[store]/navigationSlice";
 
 export default function Navbar() {
   const show = useSelector((state)=>state.nav.showMobileNav)  

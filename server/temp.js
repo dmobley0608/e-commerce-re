@@ -1,4 +1,4 @@
-export const products = [
+exports.products = [
     {id: 1, title:'test product 1', description:'this is a test product', price:(Math.random() * 10).toFixed(2), quantity:Math.floor(Math.random() * 100), imgUrl: "https://w7.pngwing.com/pngs/232/436/png-transparent-rubber-duck-duck-yellow-rubber-duckie-animals-bird-water-bird-thumbnail.png"},
     {id: 2, title:'test product 1', description:'this is a test product', price:(Math.random() * 10).toFixed(2), quantity:Math.floor(Math.random() * 100), imgUrl: "https://w7.pngwing.com/pngs/232/436/png-transparent-rubber-duck-duck-yellow-rubber-duckie-animals-bird-water-bird-thumbnail.png"},
     {id: 3, title:'test product 1', description:'this is a test product', price:(Math.random() * 10).toFixed(2), quantity:Math.floor(Math.random() * 100), imgUrl: "https://w7.pngwing.com/pngs/232/436/png-transparent-rubber-duck-duck-yellow-rubber-duckie-animals-bird-water-bird-thumbnail.png"},

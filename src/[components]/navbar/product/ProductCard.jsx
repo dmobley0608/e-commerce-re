@@ -1,12 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const ProductCard = ({product}) => {
     const {title, price, quantity, imgUrl} = product
   return (
     <div className='border mb-4 flex flex-col items-center shadow-xl w-[90%] rounded p-3 sm:w-[300px] sm:m-3 hover:cursor-pointer'>
-        <div className='border shadow-lg h-[250px] w-[250px] overflow-hidden p-3 animate-fadein mb-2'>
+        <Link to={`${product.id}`} className='border shadow-lg h-[250px] w-[250px] overflow-hidden p-3 animate-fadein mb-2'>
             <img src={imgUrl} alt={title} />
-        </div>
+        </Link>
         <div className='text-left uppercase border-b w-full mb-2 '>
             <h2 className='text-xl font-bold'>{title}</h2>            
             <h4>${price}</h4>

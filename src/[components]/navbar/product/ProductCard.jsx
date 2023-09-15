@@ -1,9 +1,9 @@
 import React from 'react'
 
 export const ProductCard = ({product}) => {
-    const {title, description, price, quantity, imgUrl} = product
+    const {title, price, quantity, imgUrl} = product
   return (
-    <div className='border mb-4 flex flex-col items-center shadow-xl w-[95%] rounded p-3 sm:w-[300px] sm:m-3 hover:cursor-pointer'>
+    <div className='border mb-4 flex flex-col items-center shadow-xl w-[90%] rounded p-3 sm:w-[300px] sm:m-3 hover:cursor-pointer'>
         <div className='border shadow-lg h-[250px] w-[250px] overflow-hidden p-3 animate-fadein mb-2'>
             <img src={imgUrl} alt={title} />
         </div>

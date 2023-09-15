@@ -1,6 +1,6 @@
 
 import { ProductCard } from '../../[components]/navbar/product/ProductCard'
-import { useGetProductsQuery } from '../../[store]/productsSlice'
+import { useGetProductsQuery } from '../../[store]/slices/productsSlice'
 
 export const Products = () => {
     const { data, error, isLoading } = useGetProductsQuery()

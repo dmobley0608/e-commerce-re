@@ -1,12 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from '../[components]/navbar/Navbar'
-import {  useDispatch } from 'react-redux'
+import {  useDispatch, useSelector } from 'react-redux'
 
-import { closeNav } from '../[store]/navigationSlice'
+import { closeNav } from '../[store]/slices/navigationSlice'
 
 function Root() {
   const dispatch = useDispatch()
+  const open = useSelector((state)=>state.nav.showMobileNav)
   return (
     <div>
       
@@ -14,7 +15,7 @@ function Root() {
           <Navbar  />
         </header>
 
-        <main onClick={()=>dispatch(closeNav())}>
+        <main onClick={()=>open ?dispatch(closeNav()) : null}>
           <Outlet />
         </main>
 

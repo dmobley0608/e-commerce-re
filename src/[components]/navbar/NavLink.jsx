@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useLocation } from 'react-router-dom'
-import { closeNav } from '../../[store]/navigationSlice'
+import { closeNav } from '../../[store]/slices/navigationSlice'
 
 export default function NavLink({to,  children}) {
     const {pathname} = useLocation()    

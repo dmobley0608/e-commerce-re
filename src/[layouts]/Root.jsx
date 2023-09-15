@@ -1,12 +1,25 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Navbar from '../[components]/navbar/Navbar'
+import {  useDispatch } from 'react-redux'
+
+import { closeNav, toggleNav } from '../store/navigationSlice'
 
 function Root() {
+  const dispatch = useDispatch()
   return (
     <div>
-        <Navbar/>
-        <Outlet/>
+      
+        <header className='sticky top-0 w-full mb-3'>
+          <Navbar  />
+        </header>
+
+        <main onClick={()=>dispatch(closeNav())}>
+          <Outlet />
+        </main>
+
+    
+
     </div>
   )
 }

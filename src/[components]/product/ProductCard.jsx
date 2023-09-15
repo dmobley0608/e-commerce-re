@@ -1,13 +1,12 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+
 import { Link } from 'react-router-dom'
-import { addItemToCart } from '../../../[store]/slices/cartSlice'
 import { ProductCardStyles } from './productCard.styles'
-import CartItemHandler from '../../cart/CartItemHandler'
+import CartItemHandler from '../cart/cartHandler/CartItemHandler'
 
 export const ProductCard = ({product}) => {
     const {title, price, quantity, imgUrl} = product
-    const dispatch = useDispatch()
+
   return (
     <div className={ProductCardStyles.card}>
         <Link to={`${product.id}`} className={ProductCardStyles.cardHeader}>

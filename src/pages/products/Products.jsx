@@ -1,18 +1,16 @@
 
-import { ProductCard } from '../../[components]/navbar/product/ProductCard'
+import { ProductCard } from '../../[components]/product/ProductCard'
 import { useGetProductsQuery } from '../../[store]/slices/productsSlice'
 
 export const Products = () => {
     const { data, error, isLoading } = useGetProductsQuery()
     const products = data;
-    console.log(data)
-
-
+    
     return (
 
         <div className='flex justify-center items-center w-full' >
             {isLoading ? "Loading" : error ? "error" :
-                <div className='flex flex-col items-center justify-center sm:flex-row sm:flex-wrap sm:max-w-[1144px] sm:justify-start w-full '>
+                <div className='flex flex-col items-center justify-center sm:flex-row sm:flex-wrap sm:max-w-[800px] lg:max-w-[1000px] md:justify-start'>
                     {products.map((product, index) => <ProductCard key={index} product={product} />)}
                 </div>
             }

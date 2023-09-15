@@ -11,7 +11,7 @@ function Root() {
   return (
     <div>
       
-        <header className='sticky top-0 w-full mb-3'>
+        <header className='sticky top-0 '>
           <Navbar  />
         </header>
 

@@ -6,13 +6,14 @@ const cartSlice = createSlice({
     initialState:{items:[], totalCost:0, totalItems:0},
     reducers:{
         addItemToCart:(state,{payload})=>{
+            if(payload.quantity === 0) return
             const cartItem = state.items.filter(product=>product.id === payload.id)[0]
-            if(cartItem){
+            if(cartItem && payload.quantity > cartItem.quantity){
                 let index =  state.items.indexOf(cartItem)
                 cartItem.quantity += 1;
                 state.items[index] = cartItem
                
-            }else{
+            }else if(!cartItem){
                 state.items.push({...payload, quantity:1})
             }
             state.totalCost = state.items.reduce((accum,product)=> accum + (product.price * product.quantity), 0).toFixed(2)

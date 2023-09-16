@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit/dist";
 
 const cartSlice = createSlice({
     "name": "cart",
-    initialState:{items:[], totalCost:0, totalItems:0},
+    initialState:{items:[], totalCost:(0).toFixed(2), totalItems:0},
     reducers:{
         addItemToCart:(state,{payload})=>{
             if(payload.quantity === 0) return

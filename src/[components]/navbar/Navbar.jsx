@@ -11,7 +11,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className="flex shadow-lg h-[75px]  items-end  px-4 pt-3 bg-slate-100 shadow-black pb-1">
+    <nav className="flex shadow-lg h-[75px]  items-end  px-4 pt-3 bg-slate-100 shadow-black pb-1 mb-20">
       <div id="nav-brand" className="mr-[100px]">
         <h4>ALL THE DUCKS</h4>
       </div>
@@ -39,9 +39,9 @@ export default function Navbar() {
       </div>
 
 
-      <div className="ms-auto p-1 mr-16">
+      <Link to="/cart" className="ms-auto p-1 mr-16">
         <ShoppingCart />
-      </div>
+      </Link>
       <div
         onClick={() => dispatch(toggleNav())}
         className="hamburger sm:hidden flex flex-col justify-between h-[20px] w-[20px] ms-auto mb-3 border-black z-">

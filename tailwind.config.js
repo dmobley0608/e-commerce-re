@@ -9,11 +9,17 @@ module.exports = {
         fadeIn: {
           '0%': { opacity: '0' },
           '100%': { opacity: '1' }
+        },
+        slideRight:{
+          '0%': {translateX:'0px'},
+          '100%':{translateX:'200px'}
         }
       },
       animation: {
-        fadein: "fadeIn .5s"
-      }
+        fadein: "fadeIn .5s",
+        slideRight: "slideRight 1.5s"
+      },
+      
     },
   },
 

@@ -11,7 +11,7 @@ export default function Navbar() {
 
 
   return (
-    <nav className="flex shadow-lg h-[75px]  items-end  px-4 pt-3 bg-slate-100 shadow-black pb-1 mb-20">
+    <nav className="flex shadow-lg h-[75px]  items-end  px-4 pt-3 bg-slate-100 shadow-black pb-1 mb-20 z-50">
       <div id="nav-brand" className="mr-[100px]">
         <h4>ALL THE DUCKS</h4>
       </div>

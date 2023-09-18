@@ -4,10 +4,17 @@ import CartRow from '../../[components]/cart/cartRow/CartRow'
 
 export default function Cart() {
     const cart = useSelector(state => state.cart)
+    const shippingCost = (.4 * cart.totalCost).toFixed(2)
+    const tax = (.07 * cart.totalCost).toFixed(2)
+
+    const calculateTotal = ()=>{       
+        return (Number(cart.totalCost) + Number(shippingCost) +Number(tax)).toFixed(2)
+    }
+
     return (
         <div>
-            <div className='w-full'>
-                <table className='w-full'>
+            <div className='w-full flex justify-center'>
+                <table className='w-full sm:max-w-[1144px]'>
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -20,27 +27,36 @@ export default function Cart() {
                     <tbody className='border-b-2 '>
                         {cart.items.map(item => <CartRow key={item.id} product={item} />)}
                     </tbody>
+                    
                     <tfoot className=''>
-                    <tr className='border-b-2'>
+                    <tr className=''>
                             <td className='w-0'></td>
                             <td className='hidden sm:block'></td>
                             <td className='w-0'></td>                           
-                            <td className='font-bold border-r-2 w-[25%]'>Tax</td>
-                            <td className='font-bold '>${(cart.totalCost * .07).toFixed(2)}</td>
-                        </tr>    
-                        <tr className='border-b-2'>
+                            <td className='font-bold border-l-2 w-[25%]'>Cart Total</td>
+                            <td className='font-bold border-2 '>${cart.totalCost}</td>
+                        </tr>  
+                    <tr className=''>
                             <td className='w-0'></td>
                             <td className='hidden sm:block'></td>
                             <td className='w-0'></td>                           
-                            <td className='font-bold border-r-2 w-[25%]'>Shipping</td>
-                            <td className='font-bold '>$9.99</td>
+                            <td className='font-bold border-2 w-[25%]'>Tax</td>
+                            <td className='font-bold  border-2'>${tax}</td>
+                        </tr> 
+                       
+                        <tr className=''>
+                            <td className='w-0'></td>
+                            <td className='hidden sm:block'></td>
+                            <td className='w-0'></td>                           
+                            <td className='font-bold border-2 w-[25%]'>Shipping</td>
+                            <td className='font-bold border-2 '>${shippingCost}</td>
                         </tr>     
-                        <tr className='border-b-2'>
+                        <tr className=''>
                             <td className='w-0'></td>
                             <td className='hidden sm:block'></td>
                             <td className='w-0'></td>                           
-                            <td className='font-bold border-r-2 w-[25%]'>Total Items {cart.totalItems}</td>
-                            <td className='font-bold '>Total Cost ${cart.totalCost + (cart.totalCost * .07).toFixed(2) + 9.99}</td>
+                            <td className='font-bold border-2 w-[25%]'>Total Cost</td>
+                            <td className='font-bold border-2'>${calculateTotal()}</td>
                         </tr>                        
                     </tfoot>
                 </table>               

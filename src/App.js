@@ -12,6 +12,7 @@ import Product from './pages/products/Product';
 import Cart from './pages/cart/Cart';
 import AdminLayout from './[layouts]/AdminLayout';
 import AdminHome from './pages/admin/AdminHome';
+import AdminProducts from './pages/admin/products/AdminProducts';
 
 
 const router = createBrowserRouter(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path='/cart' element={<Cart />} />
       <Route path='/admin' element={<AdminLayout/>}>
             <Route path='/admin' element={<AdminHome/>}/>
+            <Route path='products' element={<AdminProducts/>}/>
       </Route>
     </Route>
   ))

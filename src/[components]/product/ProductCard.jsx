@@ -5,12 +5,12 @@ import { ProductCardStyles } from './productCard.styles'
 import CartItemHandler from '../cart/cartHandler/CartItemHandler'
 
 export const ProductCard = ({product}) => {
-    const {title, price, quantity, imgUrl} = product
+    const {title, price, quantity, images} = product
 
   return (
     <div className={ProductCardStyles.card}>
         <Link to={`${product.id}`} className={ProductCardStyles.cardHeader}>
-            <img src={imgUrl} alt={title} />
+            <img src={images[0].url} alt={title} /> 
         </Link>
         <div className={ProductCardStyles.cardBody}>
             <h2 className={ProductCardStyles.cardTitle}>{title}</h2>            

@@ -4,7 +4,7 @@ import CartRow from '../../[components]/cart/cartRow/CartRow'
 
 export default function Cart() {
     const cart = useSelector(state => state.cart)
-    const shippingCost = (.4 * cart.totalCost).toFixed(2)
+    const shippingCost = (.25 * cart.totalCost) > 9.99 ? (9.99).toFixed(2) : (.25 * cart.totalCost).toFixed(2)
     const tax = (.07 * cart.totalCost).toFixed(2)
 
     const calculateTotal = ()=>{       

@@ -3,7 +3,7 @@ import CartItemHandler from '../cartHandler/CartItemHandler';
 import { useGetProductByIdQuery } from '../../../[store]/slices/productsSlice';
 
 export default function CartRow({ product }) {
-  const { title, description, quantity, price, imgUrl } = product;
+  const { title, description, quantity, price, images } = product;
   const {data, isLoading, error} = useGetProductByIdQuery(product.id)
   return (
     <>
@@ -13,7 +13,7 @@ export default function CartRow({ product }) {
         <div className='flex flex-col items-center justify-center'>
           <h2 className='uppercase'>{title}</h2>
           <div className='w-[75px]'>
-            <img src={imgUrl} alt={title} />
+            <img src={images[0].url} alt={title} />
           </div>
         </div>
 

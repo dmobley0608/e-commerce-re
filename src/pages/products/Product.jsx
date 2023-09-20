@@ -9,14 +9,14 @@ export default function Product() {
     let { id } = useParams()
     
     const { data, isLoading, error } = useGetProductByIdQuery(id)
-    const { title, description, price, quantity, imgUrl } = data || ""
+    const { title, description, price, quantity, images } = data || ""
     const cartItem = useSelector((state)=>state.cart.items.filter(item=>item.id === data.id)[0])
     return (
         <div>
             {isLoading ? "Loading" : error ? "Error" :
                 <div className='flex flex-col items-center justify-start min-h-screen'>
                     <h1 className='font-bold text-3xl uppercase'>{title}</h1>
-                    <img className='mb-3 border-b-2 shadow-md shadow-black' src={imgUrl} alt={title} />
+                    <img className='mb-3 border-b-2 shadow-md shadow-black' src={images[0].url} alt={title} /> 
                     {!cartItem ?`Unit Price: $${price}`: `Cart Price: $${(price * cartItem.quantity).toFixed(2)}`}
                     <div className='flex w-[75px] justify-between'>                       
                     <CartItemHandler product={data} />

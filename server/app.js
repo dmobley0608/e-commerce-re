@@ -1,7 +1,7 @@
 require('dotenv').config()
 const path = require('path')
 const express = require('express');
-const { products } = require('./temp');
+const  productRouter  = require('./routes/productRoutes');
 
 //SERVER CONFIG
 const app = express()
@@ -10,16 +10,12 @@ app.use(express.static("public"));
 
 
 //ROUTES
-app.get("/api/products", (req, res)=>{    
-    res.status(200).json(products)
-})
+app.use("/api/products", productRouter)
 
-app.get("/api/products/:id", (req, res)=>{    
-    const product = products.filter(product=>product.id === Number(req.params.id))[0]   
-    res.status(200).json(product)
-})
 
+//Redirect To Frontend
 app.use('/*', (req,res)=>{   
+    console.log("Sending Request To Client")
         res.sendFile("index.html", {root:path.join(__dirname,'../build')})
 })
 

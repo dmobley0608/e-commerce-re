@@ -7,7 +7,9 @@ const  productRouter  = require('./routes/productRoutes');
 const app = express()
 app.use(express.static(path.join(__dirname, "..", "build")));
 app.use(express.static("public"));
-
+//Body Parser
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 //ROUTES
 app.use("/api/products", productRouter)

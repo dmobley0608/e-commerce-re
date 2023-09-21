@@ -1,11 +1,11 @@
-const prisma = require('../prisma/PrismaClient')
 
+const prisma = require("../prisma/PrismaClient")
 
 
 exports.getProducts = async (req, res) => {
     try {     
         console.log("Fetching Products")  
-        const products = await prisma.product.findMany({ include: { images: true } })
+        const products = await prisma.product.findMany({ include: { images: true }, orderBy:{title:'asc'} })
         prisma.$disconnect()
         res.status(200).json(products)
     } catch (err) {
@@ -41,6 +41,26 @@ exports.addProduct = async(req, res)=>{
         prisma.$disconnect()
         console.log("Successfully Added Product")
         res.status(200).json("Successfully Added Product")
+    }catch(err){
+        console.log(err)
+        res.status(500).json(err)
+    }
+}
+
+exports.editProduct = async(req, res)=>{
+    console.log("Editing Product")
+  
+    
+    try{
+         console.log("Editing Product")
+         const product = {title:req.body.title, description:req.body.description, quantity:Number(req.body.quantity),price:Number(req.body.price)}
+        await prisma.product.update({
+            where:{id:req.body.id},
+            data:{...product}
+        })
+        prisma.$disconnect()
+        console.log("Successfully Updated Product")
+        res.status(200).json("Successfully Updated Product")
     }catch(err){
         console.log(err)
         res.status(500).json(err)

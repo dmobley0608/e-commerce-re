@@ -17,10 +17,18 @@ export const productsApi = createApi({
             }),
             invalidatesTags:['Products']
         }),
-        
+        editProduct: builder.mutation({
+            query:({id, ...body})=>({
+                url:`/${id}/edit`,
+                method:'PUT',
+                body:body.data,
+                
+            }),
+            invalidatesTags:['Products']
+        }),
         
     })
 })
 
 
-export const {useGetProductsQuery, useGetProductByIdQuery, useAddProductMutation} = productsApi
+export const {useGetProductsQuery, useGetProductByIdQuery, useAddProductMutation, useEditProductMutation} = productsApi

@@ -66,3 +66,15 @@ exports.editProduct = async(req, res)=>{
         res.status(500).json(err)
     }
 }
+
+exports.deleteProduct = async(req, res)=>{
+    try{
+        console.log("Deleting Product")
+        await prisma.productImage.deleteMany({where:{productId:req.params.id}})
+        await prisma.product.delete({where:{id:req.params.id}})
+        res.status(200).json("Successfully Delete Product")
+    }catch(err){
+        console.log(err)
+        res.status(500).json(err)
+    }
+}

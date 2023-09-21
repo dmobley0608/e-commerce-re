@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGetProductsQuery } from "../../../[store]/slices/productsSlice";
+import { useDeleteProductByIdMutation, useGetProductsQuery } from "../../../[store]/slices/productsSlice";
 import Modal from "../../../[components]/modals/Modal";
 import NewProductForm from "../../../[components]/forms/admin/NewProductForm";
 import EditProductForm from "../../../[components]/forms/admin/EditProductForm";
@@ -8,6 +8,7 @@ export default function AdminProducts() {
   const { data, isFetching, errors } = useGetProductsQuery();
   const [showModal, setShowModal] = useState(false); 
   const [product, setProduct] = useState(null)
+  const [deleteProductById, result] = useDeleteProductByIdMutation()
   
   return (
     <div className="w-full">
@@ -73,7 +74,7 @@ export default function AdminProducts() {
                 </button>
               </div>
               <div className="w-[7%] flex justify-center ">
-                <button className="font-semibold bg-red-400 w-[25px] h-[25px]">
+                <button className="font-semibold bg-red-400 w-[25px] h-[25px]" onClick={()=>deleteProductById(product.id)}>
                   X
                 </button>
               </div>

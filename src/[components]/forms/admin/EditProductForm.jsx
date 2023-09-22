@@ -4,6 +4,7 @@ import TextInput from "../inputs/TextInput";
 import NumberInput from "../inputs/NumberInput";
 import SubmitInput from "../SubmitInput";
 import { useEditProductMutation } from "../../../[store]/slices/productsSlice";
+import Loading from "../../loading/Loading";
 
 export default function EditProductForm({ setShow, setProduct, product }) {
   const {
@@ -27,9 +28,7 @@ export default function EditProductForm({ setShow, setProduct, product }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {isLoading ? (
-        <div className="min-w-[600px] min-h-[300px] text-2xl justify-center items-center">
-             <h1>Submitting Data</h1>
-        </div>
+        <Loading>Updating Product</Loading>
        
       ) : (
         <>

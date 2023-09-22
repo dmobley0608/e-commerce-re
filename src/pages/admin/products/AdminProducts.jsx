@@ -3,6 +3,7 @@ import { useDeleteProductByIdMutation, useGetProductsQuery } from "../../../[sto
 import Modal from "../../../[components]/modals/Modal";
 import NewProductForm from "../../../[components]/forms/admin/NewProductForm";
 import EditProductForm from "../../../[components]/forms/admin/EditProductForm";
+import Loading from "../../../[components]/loading/Loading";
 
 export default function AdminProducts() {
   const { data, isFetching, errors } = useGetProductsQuery();
@@ -12,7 +13,7 @@ export default function AdminProducts() {
   
   return (
     <div className="w-full">
-      {!isFetching && !errors && (
+      {isFetching ?(<Loading>Gathering Products</Loading>):(
         <>
           <button
             className="bg-green-600 text-white p-3 rounded mb-1 hover:bg-green-400"

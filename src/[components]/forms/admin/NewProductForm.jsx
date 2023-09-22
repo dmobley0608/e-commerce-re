@@ -4,6 +4,7 @@ import TextInput from '../inputs/TextInput'
 import NumberInput from '../inputs/NumberInput'
 import SubmitInput from '../SubmitInput'
 import { useAddProductMutation, useGetProductsQuery } from '../../../[store]/slices/productsSlice'
+import Loading from '../../loading/Loading'
 
 export default function NewProductForm({ setShow, isLoading }) {
     const { register, handleSubmit, watch, formState: { errors } } = useForm()
@@ -17,7 +18,7 @@ export default function NewProductForm({ setShow, isLoading }) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            {isLoading ? "Submitting Data" :
+            {isLoading ? <Loading>Adding New Product</Loading> :
                 <>
                     <h1 className='text-2xl'>Create New Product</h1>
                     <div className='mt-6'>

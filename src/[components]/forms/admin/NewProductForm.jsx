@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form'
 import TextInput from '../inputs/TextInput'
 import NumberInput from '../inputs/NumberInput'
 import SubmitInput from '../SubmitInput'
-import { useAddProductMutation, useGetProductsQuery } from '../../../[store]/slices/productsSlice'
+import { useAddProductMutation } from '../../../[store]/slices/productsSlice'
 import Loading from '../../loading/Loading'
 
-export default function NewProductForm({ setShow, isLoading }) {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm()
-    const [addProduct, result] = useAddProductMutation()
+export default function NewProductForm({ setShow }) {
+    const { register, handleSubmit,  formState: { errors } } = useForm()
+    const [addProduct, {isLoading}] = useAddProductMutation()
 
 
     const onSubmit = async (data) => {       

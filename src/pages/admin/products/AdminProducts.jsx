@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useDeleteProductByIdMutation, useGetProductsQuery } from "../../../[store]/slices/productsSlice";
+import React, {  useState } from "react";
+import { useGetProductsQuery } from "../../../[store]/slices/productsSlice";
 import Modal from "../../../[components]/modals/Modal";
 import NewProductForm from "../../../[components]/forms/admin/NewProductForm";
 import EditProductForm from "../../../[components]/forms/admin/EditProductForm";
 import Loading from "../../../[components]/loading/Loading";
+import DeleteProductForm from "../../../[components]/forms/admin/DeleteProductForm";
 
 export default function AdminProducts() {
-  const { data, isFetching, errors } = useGetProductsQuery();
-  const [showModal, setShowModal] = useState(false); 
+  const { data, isFetching} = useGetProductsQuery();
+  const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState(null)
-  const [deleteProductById, result] = useDeleteProductByIdMutation()
-  
+ 
+  const [deleteModal, setDeleteModal] = useState(false)
   return (
     <div className="w-full">
-      {isFetching ?(<Loading>Gathering Products</Loading>):(
+      {isFetching ? (<Loading>Gathering Products</Loading>) : (
         <>
           <button
             className="bg-green-600 text-white p-3 rounded mb-1 hover:bg-green-400"
@@ -70,12 +71,12 @@ export default function AdminProducts() {
                 <p className="font-semibold">${product.price}</p>
               </div>
               <div className="w-[7%] flex justify-center ">
-                <button className="font-semibold bg-slate-400  rounded p-2 " onClick={()=>{setProduct(product); setShowModal(true)}}>
+                <button className="font-semibold bg-slate-400  rounded p-2 " onClick={() => {setProduct(product); setDeleteModal(false); setShowModal(true)}}>
                   Edit
                 </button>
               </div>
               <div className="w-[7%] flex justify-center ">
-                <button className="font-semibold bg-red-400 w-[25px] h-[25px]" onClick={()=>deleteProductById(product.id)}>
+                <button className="font-semibold bg-red-400 w-[25px] h-[25px]" onClick={() =>{setProduct(product); setDeleteModal(true); setShowModal(true)}}>
                   X
                 </button>
               </div>
@@ -86,9 +87,9 @@ export default function AdminProducts() {
       <Modal show={showModal} setShow={setShowModal} setValue={setProduct}>
         {!product ? (
           <NewProductForm setShow={setShowModal} />
-        ) : (
-          <EditProductForm setShow={setShowModal} product={product} setProduct={setProduct}/>
-        )}
+        ) : !deleteModal ? (
+          <EditProductForm setShow={setShowModal} product={product} setProduct={setProduct} />
+        ) : <DeleteProductForm setShow={setShowModal} product={product} setProduct={setProduct} />}
       </Modal>
     </div>
   );

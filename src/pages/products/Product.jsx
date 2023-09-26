@@ -1,8 +1,8 @@
 import React from 'react'
-import { useGetProductByIdQuery } from '../../[store]/slices/productsSlice'
+import { useGetProductByIdQuery } from '../../store/slices/productsSlice'
 import { useParams } from 'react-router-dom'
 import {  useSelector } from 'react-redux'
-import CartItemHandler from '../../[components]/cart/cartHandler/CartItemHandler'
+import CartItemHandler from '../../components/cart/cartHandler/CartItemHandler'
 
 
 export default function Product() {

@@ -1,23 +1,25 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { useGetUserQuery } from '../../../store/slices/userSlice'
 
 export default function Sidebar() {
     const [open, setOpen] = useState(false)
-    const {pathname} = useLocation()
-   
+    const { pathname } = useLocation()
+    const { data: user } = useGetUserQuery()
+
 
     //Set Active Link Style
-    const setStyle = (to)=>{
+    const setStyle = (to) => {
         let style = 'cursor-pointer hover:font-bold mb-3 '
-        if(pathname === to){
+        if (pathname === to) {
             style += 'border-b-2 font-extrabold text-center tracking-[2px]'
-        }else{
+        } else {
             style += 'font-bold'
-        }        
+        }
         return style
     }
 
-  
+
     return (
         <div
             className={`${open ? 'animate-slideRight  bg-slate-500' : 'translate-x-[-125px] '} 
@@ -30,19 +32,21 @@ export default function Sidebar() {
                 }
             </div>
             <ul className='text-start'>
-              
-                <li className={setStyle('/admin')} onClick={()=>setOpen(!open)}>
-                    <Link to="/admin" >Dashboard </Link>
+
+                <li className={setStyle('/')} onClick={() => setOpen(!open)}>
+                    <Link to="/" >Dashboard </Link>
                 </li>
-                <li className={setStyle('/admin/products')}  onClick={()=>setOpen(!open)}>
-                    <Link to="/admin/products" >Products </Link>
+                <li className={setStyle('products')} onClick={() => setOpen(!open)}>
+                    <Link to="products" >Products </Link>
                 </li>
-                <li className={setStyle('/admin/transactions')}  onClick={()=>setOpen(!open)}>
-                    <Link to="/admin/transactions" >Transactions </Link>
+                <li className={setStyle('transactions')} onClick={() => setOpen(!open)}>
+                    <Link to="transactions" >Transactions </Link>
                 </li>
-                <li className={setStyle('/admin/users')}  onClick={()=>setOpen(!open)}>
-                    <Link to="/admin/users" >Users </Link>
-                </li>               
+                {user.role === "ADMIN" &&
+                    <li className={setStyle('users')} onClick={() => setOpen(!open)}>
+                        <Link to="users" >Users </Link>
+                    </li>
+                }
             </ul>
         </div>
     )

@@ -16,6 +16,7 @@ export const ProductCard = ({product}) => {
             <h2 className={ProductCardStyles.cardTitle}>{title}</h2>            
             <h4>${price}</h4>
             <h4>{quantity === 0 ?"Out of Stock" :quantity < 10 ?`Only ${quantity} in stock`: `${quantity} In Stock`}</h4>
+            <h5 className='text-xs'>Seller: {product.user.firstName[0]}. {product.user.lastName}</h5>
         </div>
         <CartItemHandler product={product}/>       
        

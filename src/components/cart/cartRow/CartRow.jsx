@@ -1,10 +1,10 @@
 import React from 'react'
 import CartItemHandler from '../cartHandler/CartItemHandler';
-import { useGetProductByIdQuery } from '../../../[store]/slices/productsSlice';
+import { useGetProductByIdQuery } from '../../../store/slices/productsSlice';
 
 export default function CartRow({ product }) {
   const { title, description, quantity, price, images } = product;
-  const {data, isLoading, error} = useGetProductByIdQuery(product.id)
+  const {data, isLoading} = useGetProductByIdQuery(product.id)
   return (
     <>
     {!isLoading &&

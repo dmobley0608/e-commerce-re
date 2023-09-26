@@ -1,16 +1,16 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import TextInput from "../inputs/TextInput";
-import NumberInput from "../inputs/NumberInput";
-import SubmitInput from "../SubmitInput";
-import { useEditProductMutation } from "../../../[store]/slices/productsSlice";
-import Loading from "../../loading/Loading";
+
+import Loading from "../components/loading/Loading";
+import TextInput from "../components/inputs/TextInput";
+import NumberInput from "../components/inputs/NumberInput";
+import SubmitInput from "../components/inputs/SubmitInput";
+import { useEditProductMutation } from "../store/slices/productsSlice";
 
 export default function EditProductForm({ setShow, setProduct, product }) {
   const {
     register,
-    handleSubmit,
-    watch,
+    handleSubmit,  
     formState: { errors },
   } = useForm({ values: { ...product, imageUrl: product.images[0].url } });
 

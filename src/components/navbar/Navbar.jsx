@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import NavLink from "./NavLink";
 import { useDispatch, useSelector } from "react-redux";
-import { closeNav, toggleNav } from "../../[store]/slices/navigationSlice";
+import { closeNav, toggleNav } from "../../store/slices/navigationSlice";
 import ShoppingCart from "../cart/shoppingCart/ShoppingCart";
-import { useGetUserQuery, useLogoutMutation } from "../../[store]/slices/userSlice";
+import { useGetUserQuery, useLogoutMutation } from "../../store/slices/userSlice";
 
 
 export default function Navbar() {
@@ -38,23 +38,36 @@ export default function Navbar() {
           <li className="">
             <NavLink to="/about">About</NavLink>
           </li>
+          {user &&
+          <>
+          <li className="sm:hidden">
+            <NavLink to={`/${user.id}/dashboard`}>Dashboard</NavLink>
+          </li>
+          <li className="sm:hidden">
+            <NavLink to='/profile' >Profile</NavLink>
+          </li>
+          <li onClick={() => logout()} className="sm:hidden">
+            <NavLink to='/' >Sign Out</NavLink>
+          </li>
+          </>
+          }
           <li className="ms-auto sm:absolute right-5  " onClick={() => dispatch(closeNav())}>
             {!user && <Link to="/login">Sign In</Link>}
             {user &&
-              <div onClick={() => setShowMiniNav(!showMiniNav)} className="rounded-full bg-red-500 w-16 h-16 sm:absolute -top-[38px] right-0 items-center justify-center flex p-0 cursor-pointer">
+              <div onClick={() => setShowMiniNav(!showMiniNav)} className="hidden sm:flex rounded-full bg-red-500 w-16 h-16 sm:absolute -top-[38px] right-0 items-center justify-center flex p-0 cursor-pointer">
                 <h1 className="text-5xl font-extrabold text-white">{user.firstName[0]}</h1>
               </div>
             }
             {showMiniNav &&
-              <ul onClick={() => setShowMiniNav(false)} className="absolute bg-white p-3 rounded font-bold text-start top-[30px] -right-[3px]">
+              <ul onClick={() => setShowMiniNav(false)} className="sm:absolute bg-white p-6 w-52 rounded font-bold text-start top-[30px] -right-[3px]">
                 <li>
-                  <NavLink to="/admin">Dashboard</NavLink>
+                  <NavLink to={`/${user.id}/dashboard`}>Dashboard</NavLink>
                 </li>
                 <li>
                   <NavLink to='/profile' >Profile</NavLink>
                 </li>
-                <li onClick={()=> logout()}>
-                  <NavLink to='/' >Sign Out</NavLink>
+                <li onClick={() => logout()}>
+                  <NavLink to='/sign-out' >Sign Out</NavLink>
                 </li>
               </ul>
             }

@@ -1,6 +1,7 @@
 import React from 'react'
-import { useDeleteProductByIdMutation } from '../../../[store]/slices/productsSlice'
-import Loading from '../../loading/Loading'
+
+import Loading from '../components/loading/Loading'
+import { useDeleteProductByIdMutation } from '../store/slices/productsSlice'
 
 export default function DeleteProductForm({ setShow, product, setProduct }) {
     const [deleteProduct, { isLoading }] = useDeleteProductByIdMutation()

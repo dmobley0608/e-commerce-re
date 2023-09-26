@@ -1,17 +1,20 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import TextInput from '../inputs/TextInput'
-import NumberInput from '../inputs/NumberInput'
-import SubmitInput from '../SubmitInput'
-import { useAddProductMutation } from '../../../[store]/slices/productsSlice'
-import Loading from '../../loading/Loading'
+import TextInput from '../components/inputs/TextInput'
+import NumberInput from '../components/inputs/NumberInput'
+import SubmitInput from '../components/inputs/SubmitInput'
+import Loading from '../components/loading/Loading'
+import { useAddProductMutation } from '../store/slices/productsSlice'
+import { useGetUserQuery } from '../store/slices/userSlice'
 
 export default function NewProductForm({ setShow }) {
     const { register, handleSubmit,  formState: { errors } } = useForm()
     const [addProduct, {isLoading}] = useAddProductMutation()
+    const {data:user} = useGetUserQuery()
 
 
-    const onSubmit = async (data) => {       
+    const onSubmit = async (data) => {    
+        data.userId = user.id   
         await addProduct(data)
         setShow(false)
     }

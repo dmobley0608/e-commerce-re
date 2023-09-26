@@ -1,13 +1,21 @@
 import React, {  useState } from "react";
-import { useGetProductsQuery } from "../../../[store]/slices/productsSlice";
-import Modal from "../../../[components]/modals/Modal";
-import NewProductForm from "../../../[components]/forms/admin/NewProductForm";
-import EditProductForm from "../../../[components]/forms/admin/EditProductForm";
-import Loading from "../../../[components]/loading/Loading";
-import DeleteProductForm from "../../../[components]/forms/admin/DeleteProductForm";
+import { useGetProductsQuery } from "../../../store/slices/productsSlice";
+import Modal from "../../../components/modals/Modal";
 
-export default function AdminProducts() {
-  const { data, isFetching} = useGetProductsQuery();
+import Loading from "../../../components/loading/Loading";
+import NewProductForm from "../../../forms/NewProductForm";
+import EditProductForm from "../../../forms/EditProductForm";
+import DeleteProductForm from "../../../forms/DeleteProductForm";
+import { useGetUserQuery } from "../../../store/slices/userSlice";
+
+
+export default function DashboardProducts() {
+  const {data:user} = useGetUserQuery()
+  const { products, isFetching} = useGetProductsQuery(undefined,
+    {
+      selectFromResult:({data})=>({products:data?.filter((product)=>product.userId === user.id) ?? []})
+    });
+   
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState(null)
  
@@ -44,7 +52,7 @@ export default function AdminProducts() {
             <div className="w-[7%] flex justify-center"></div>
           </div>
 
-          {data.map((product) => (
+          {products.map((product) => (
             <div
               key={product.id}
               className="flex justify-between border  items-center">

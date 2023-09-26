@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import TextInput from '../../[components]/forms/inputs/TextInput'
-import SubmitInput from '../../[components]/forms/SubmitInput'
-import { useGetUserQuery, useLoginMutation } from '../../[store]/slices/userSlice'
-import Loading from '../../[components]/loading/Loading'
+
+import { useGetUserQuery, useLoginMutation } from '../../store/slices/userSlice'
+import Loading from '../../components/loading/Loading'
+import TextInput from '../../components/inputs/TextInput'
+import SubmitInput from '../../components/inputs/SubmitInput'
 export const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [login, result] = useLoginMutation()
@@ -13,13 +14,15 @@ export const Login = () => {
   const nav = useNavigate()
 
   const onSubmit = async data => {
-    const result = await login(data)       
+   await login(data)       
   }
 
+
   useEffect(()=>{
-    if(user){
-      nav("/admin")
+    if(user){  
+      nav(`/${user.id}/dashboard`)
     }
+    // eslint-disable-next-line
   },[user])
 
   return (

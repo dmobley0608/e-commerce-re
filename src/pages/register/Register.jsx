@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import TextInput from '../../[components]/forms/inputs/TextInput'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import SubmitInput from '../../[components]/forms/SubmitInput'
 import { Link } from 'react-router-dom'
-import { useRegisterUserMutation } from '../../[store]/slices/userSlice'
-import Loading from '../../[components]/loading/Loading'
+import { useRegisterUserMutation } from '../../store/slices/userSlice'
+import Loading from '../../components/loading/Loading'
+import TextInput from '../../components/inputs/TextInput'
+import SubmitInput from '../../components/inputs/SubmitInput'
 
 export const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()

@@ -1,7 +1,7 @@
 
-import Loading from '../../[components]/loading/Loading';
-import { ProductCard } from '../../[components]/product/ProductCard'
-import { useGetProductsQuery } from '../../[store]/slices/productsSlice'
+import Loading from '../../components/loading/Loading';
+import { ProductCard } from '../../components/product/ProductCard'
+import { useGetProductsQuery } from '../../store/slices/productsSlice'
 
 export const Products = () => {
     const { data, error, isLoading } = useGetProductsQuery()

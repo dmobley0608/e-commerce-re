@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import CartRow from '../../[components]/cart/cartRow/CartRow'
+import CartRow from '../../components/cart/cartRow/CartRow'
 
 export default function Cart() {
     const cart = useSelector(state => state.cart)

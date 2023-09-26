@@ -3,16 +3,17 @@ import './App.css';
 import Root from './[layouts]/Root';
 import { Homepage } from './pages/home/Homepage';
 import { Provider } from 'react-redux';
-import store from './[store]/store';
+import store from './store/store';
 import { Products } from './pages/products/Products';
 import { About } from './pages/about/About';
 import { Login } from './pages/login/Login';
 import { Register } from './pages/register/Register';
 import Product from './pages/products/Product';
 import Cart from './pages/cart/Cart';
-import AdminLayout from './[layouts]/AdminLayout';
-import AdminHome from './pages/admin/AdminHome';
-import AdminProducts from './pages/admin/products/AdminProducts';
+import DashboardLayout from './[layouts]/DashboardLayout';
+import Dashboard from './pages/dasboard/Dashboard';
+import DashboardProducts from './pages/dasboard/products/DashboardProducts';
+
 
 
 
@@ -28,9 +29,9 @@ const router = createBrowserRouter(
       <Route path='/login' element={<Login />} />
       <Route path='/register' element={<Register />} />
       <Route path='/cart' element={<Cart />} />
-      <Route path='/admin' element={<AdminLayout/>}>
-            <Route path='/admin' element={<AdminHome/>}/>
-            <Route path='products' element={<AdminProducts/>}/>
+      <Route path='/:user/dashboard' element={<DashboardLayout/>}>
+            <Route path='' element={<Dashboard/>}/>
+            <Route path='products' element={<DashboardProducts/>}/>
       </Route>
     </Route>
   ))

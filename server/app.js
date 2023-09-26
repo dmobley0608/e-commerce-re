@@ -1,7 +1,10 @@
 require('dotenv').config()
 const path = require('path')
 const express = require('express');
+const session = require('express-session')
+const passport = require('./utils/passport')
 const  productRouter  = require('./routes/productRoutes');
+const userRouter = require("./routes/userRoutes")
 
 //SERVER CONFIG
 const app = express()
@@ -10,10 +13,22 @@ app.use(express.static("public"));
 //Body Parser
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
+//Session
+app.use(session({
+    store: new(require('connect-pg-simple')(session))({
+        conString:process.env.DATABASE_URL,  
+        tableName:'Session'      
+    }),
+    secret:'ley',
+    resave:false,
+    saveUninitialized: false,
+    cookie:{secure:false}
+}))
+//Passport Authentication
+app.use(passport.authenticate('session'))
 //ROUTES
 app.use("/api/products", productRouter)
-
+app.use("/api/users", userRouter)
 
 //Redirect To Frontend
 app.use('/*', (req,res)=>{   

@@ -5,8 +5,9 @@ const prisma = require("../prisma/PrismaClient")
 exports.getProducts = async (req, res) => {
     try {     
         console.log("Fetching Products")  
-        const products = await prisma.product.findMany({ include: { images: true }, orderBy:{title:'asc'} })
+        const products = await prisma.product.findMany({ include: { images: true, user:{select:{id:true,firstName:true, lastName:true, email:true}} }, orderBy:{title:'asc'} })
         prisma.$disconnect()
+        console.log(products)
         res.status(200).json(products)
     } catch (err) {
         console.log(err)
@@ -17,7 +18,7 @@ exports.getProducts = async (req, res) => {
 exports.getProductById = async (req, res) => {
     try {
         const { id } = req.params
-        const product = await prisma.product.findUnique({ where: { id: id }, include: { images: true } })
+        const product = await prisma.product.findUnique({ where: { id: id }, include: { images: true,  user:{select:{firstName:true, lastName:true, email:true}} },  })
         res.status(200).json(product)
     } catch (err) {
         console.log(err)
@@ -28,7 +29,7 @@ exports.getProductById = async (req, res) => {
 exports.addProduct = async(req, res)=>{
     try{
          console.log("Adding New Product")
-         const product = {title:req.body.title, description:req.body.description, quantity:Number(req.body.quantity),price:Number(req.body.price)}
+         const product = {title:req.body.title, description:req.body.description, quantity:Number(req.body.quantity),price:Number(req.body.price), userId:req.body.userId}
         await prisma.product.create({
             data:{...product,               
                 images:{

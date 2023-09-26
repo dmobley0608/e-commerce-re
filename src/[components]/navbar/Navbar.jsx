@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import NavLink from "./NavLink";
 import { useDispatch, useSelector } from "react-redux";
 import { closeNav, toggleNav } from "../../[store]/slices/navigationSlice";
 import ShoppingCart from "../cart/shoppingCart/ShoppingCart";
+import { useGetUserQuery, useLogoutMutation } from "../../[store]/slices/userSlice";
+
 
 export default function Navbar() {
   const show = useSelector((state) => state.nav.showMobileNav)
+  const [showMiniNav, setShowMiniNav] = useState(false)
   const dispatch = useDispatch()
+  const { data: user } = useGetUserQuery()
+
+  const [logout] = useLogoutMutation()
 
 
   return (
@@ -16,7 +22,7 @@ export default function Navbar() {
         <h4>ALL THE DUCKS</h4>
       </div>
 
-     
+
       <div>
         <ul
           className={` ${show
@@ -32,14 +38,32 @@ export default function Navbar() {
           <li className="">
             <NavLink to="/about">About</NavLink>
           </li>
-          <li className="ms-auto sm:absolute right-5 " onClick={() => dispatch(closeNav())}>
-            <Link to="/login">Sign In</Link>
+          <li className="ms-auto sm:absolute right-5  " onClick={() => dispatch(closeNav())}>
+            {!user && <Link to="/login">Sign In</Link>}
+            {user &&
+              <div onClick={() => setShowMiniNav(!showMiniNav)} className="rounded-full bg-red-500 w-16 h-16 sm:absolute -top-[38px] right-0 items-center justify-center flex p-0 cursor-pointer">
+                <h1 className="text-5xl font-extrabold text-white">{user.firstName[0]}</h1>
+              </div>
+            }
+            {showMiniNav &&
+              <ul onClick={() => setShowMiniNav(false)} className="absolute bg-white p-3 rounded font-bold text-start top-[30px] -right-[3px]">
+                <li>
+                  <NavLink to="/admin">Dashboard</NavLink>
+                </li>
+                <li>
+                  <NavLink to='/profile' >Profile</NavLink>
+                </li>
+                <li onClick={()=> logout()}>
+                  <NavLink to='/' >Sign Out</NavLink>
+                </li>
+              </ul>
+            }
           </li>
         </ul>
       </div>
 
 
-      <Link to="/cart" className="ms-auto p-1 mr-16">
+      <Link to="/cart" className="ms-auto mr-20" >
         <ShoppingCart />
       </Link>
       <div

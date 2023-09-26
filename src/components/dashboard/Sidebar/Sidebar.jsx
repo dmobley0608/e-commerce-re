@@ -23,7 +23,7 @@ export default function Sidebar() {
     return (
         <div
             className={`${open ? 'animate-slideRight  bg-slate-500' : 'translate-x-[-125px] '} 
-        sm:translate-x-0 w-[150px] pl-2 pr-6 pt-5 min-h-screen text-slate-200 sm:bg-slate-500`}>
+        sm:translate-x-0 sm:-translate-y-[5px] w-[150px] pl-2 pr-6 pt-5 min-h-screen text-slate-200 sm:bg-slate-500 shadow-lg shadow-black`}>
             <div className='sm:hidden text-black translate-x-[25px]' onClick={() => setOpen(!open)}>
                 {!open ?
                     <h1 className='text-2xl font-extrabold text-right pr-2 '>{">"}</h1>

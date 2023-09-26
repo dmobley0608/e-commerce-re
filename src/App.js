@@ -33,6 +33,7 @@ const router = createBrowserRouter(
             <Route path='' element={<Dashboard/>}/>
             <Route path='products' element={<DashboardProducts/>}/>
       </Route>
+      <Route path="/sign-out" element={<Homepage/>}/>
     </Route>
   ))
 

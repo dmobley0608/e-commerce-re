@@ -5,6 +5,7 @@ const { getProducts, getProductById, addProduct, editProduct, deleteProduct } = 
 const productRouter = express.Router()
 
 
+
 productRouter.get('/', getProducts)
 productRouter.get('/:id', getProductById)
 productRouter.put('/:id/edit', editProduct)

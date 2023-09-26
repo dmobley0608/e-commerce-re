@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { useGetProductsQuery } from "../../../store/slices/productsSlice";
 import Modal from "../../../components/modals/Modal";
 
@@ -10,15 +10,21 @@ import { useGetUserQuery } from "../../../store/slices/userSlice";
 
 
 export default function DashboardProducts() {
-  const {data:user} = useGetUserQuery()
-  const { products, isFetching} = useGetProductsQuery(undefined,
+  const { data: user } = useGetUserQuery()
+  const { products, isFetching } = useGetProductsQuery(undefined,
     {
-      selectFromResult:({data})=>({products:data?.filter((product)=>product.userId === user.id) ?? []})
+      selectFromResult: ({ data }) => {
+        if (user.role === 'USER') {
+          return { products: data?.filter(product => product.userId === user.id) ?? [] }
+        } else if (user.role === 'ADMIN') {
+          return { products: data ?? [] }
+        }
+      }
     });
-   
+    
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState(null)
- 
+
   const [deleteModal, setDeleteModal] = useState(false)
   return (
     <div className="w-full">
@@ -33,6 +39,10 @@ export default function DashboardProducts() {
             <div className="w-[25%] flex justify-center">
               <p className="font-extrabold">ID</p>
             </div>
+            {user.role === 'ADMIN' &&
+              <div className="w-[8%] text-xs">
+                <p className="font-semibold">Seller</p>
+              </div>}
             <div className="hidden w-[10%] sm:flex justify-center">
               <p className="font-extrabold">Image</p>
             </div>
@@ -59,6 +69,10 @@ export default function DashboardProducts() {
               <div className="w-[25%] text-xs">
                 <p className="font-semibold">{product.id}</p>
               </div>
+              {user.role === 'ADMIN' &&
+                <div className="w-[8%] text-xs overflow-hidden">
+                  <p className="font-semibold">{product.user.email.split('@')[0]}</p>
+                </div>}
               <div className="hidden w-[10%] sm:flex justify-center">
                 <img
                   src={product.images[0].url}
@@ -79,12 +93,12 @@ export default function DashboardProducts() {
                 <p className="font-semibold">${product.price}</p>
               </div>
               <div className="w-[7%] flex justify-center ">
-                <button className="font-semibold bg-slate-400  rounded p-2 " onClick={() => {setProduct(product); setDeleteModal(false); setShowModal(true)}}>
+                <button className="font-semibold bg-slate-400  rounded p-2 " onClick={() => { setProduct(product); setDeleteModal(false); setShowModal(true) }}>
                   Edit
                 </button>
               </div>
               <div className="w-[7%] flex justify-center ">
-                <button className="font-semibold bg-red-400 w-[25px] h-[25px]" onClick={() =>{setProduct(product); setDeleteModal(true); setShowModal(true)}}>
+                <button className="font-semibold bg-red-400 w-[25px] h-[25px]" onClick={() => { setProduct(product); setDeleteModal(true); setShowModal(true) }}>
                   X
                 </button>
               </div>

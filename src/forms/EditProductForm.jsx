@@ -17,9 +17,9 @@ export default function EditProductForm({ setShow, setProduct, product }) {
   const [editProduct, {isLoading}] = useEditProductMutation();
 
   const onSubmit = async (data) => {
-    const id = product.id;
+    data.id = product.id;
     data.updatedAt = Date.now();    
-    await editProduct({ id, data }).then((res) => {        
+    await editProduct({ data }).then((res) => {        
       setProduct(null);
       setShow(false);
     });

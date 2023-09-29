@@ -1,29 +1,29 @@
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-
-import { useGetUserQuery, useLoginMutation } from '../../store/slices/userSlice'
+import googleIcon from "../../images/google icon.png"
+import { useGetCurrentUserQuery, useLoginMutation } from '../../store/slices/userSlice'
 import Loading from '../../components/loading/Loading'
 import TextInput from '../../components/inputs/TextInput'
 import SubmitInput from '../../components/inputs/SubmitInput'
 export const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm()
   const [login, result] = useLoginMutation()
-  const { data: user } = useGetUserQuery()
+  const { data: user } = useGetCurrentUserQuery()
 
   const nav = useNavigate()
 
   const onSubmit = async data => {
-   await login(data)       
+    await login(data)
   }
 
 
-  useEffect(()=>{
-    if(user){  
+  useEffect(() => {
+    if (user) {
       nav(`/${user.id}/dashboard`)
     }
     // eslint-disable-next-line
-  },[user])
+  }, [user])
 
   return (
     <div className='flex flex-col items-center'>
@@ -31,14 +31,17 @@ export const Login = () => {
         <>
           <form className='border p-6 w-[95%] sm:max-w-[600px] shadow mb-3' onSubmit={handleSubmit(onSubmit)}>
             <h1 className='text-3xl mb-12'>Login</h1>
-            {result.error && result.error.originalStatus === 401 ? 
-            <h6 className='mb-6 bg-red-600 text-white'>Invalid Username or Password</h6>: result.error ?
-            <h6 className='mb-6 text-white bg-orange-600 rounded'>Uh-Oh We Are Expreriencing Difficulties</h6>:""}
+            {result.error && result.error.originalStatus === 401 ?
+              <h6 className='mb-6 bg-red-600 text-white'>Invalid Username or Password</h6> : result.error ?
+                <h6 className='mb-6 text-white bg-orange-600 rounded'>Uh-Oh We Are Expreriencing Difficulties</h6> : ""}
             <TextInput name={"email"} type={"text"} label={"Email"} register={register} errors={errors} errorMessage={"Email address Is Required"} required={true} />
             <TextInput name={"password"} label={"Password"} type={"password"} register={register} errors={errors} errorMessage={"Password Field Is Required"} required={true} />
             <SubmitInput />
-            <h2>Login in Via:</h2>
-            <Link>Google</Link>
+            <h2 className='font-bold text-lg'>Login in Via:</h2>
+            <div className='flex justify-center'>
+              <a href='/api/users/login/federated/google' title='Login with Google'><img src={googleIcon} alt="google login" width='50px' /></a>
+            </div>
+
           </form>
 
           <h2 className='font-bold'>Don't have an account?<br /> No worries! <br />Click below to register!</h2>

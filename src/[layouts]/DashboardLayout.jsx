@@ -1,10 +1,10 @@
 import React from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Sidebar from '../components/dashboard/Sidebar/Sidebar'
-import { useGetUserQuery } from '../store/slices/userSlice'
+import { useGetCurrentUserQuery } from '../store/slices/userSlice'
 import policeDuck from "../images/police duck.png"
 const AuthRoute = ({ children }) => {
-    const { data: user } = useGetUserQuery()
+    const { data: user } = useGetCurrentUserQuery()
     const nav = useNavigate()
     if (user) {
         return children

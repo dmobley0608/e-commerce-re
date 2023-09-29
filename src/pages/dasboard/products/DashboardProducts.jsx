@@ -6,11 +6,11 @@ import Loading from "../../../components/loading/Loading";
 import NewProductForm from "../../../forms/NewProductForm";
 import EditProductForm from "../../../forms/EditProductForm";
 import DeleteProductForm from "../../../forms/DeleteProductForm";
-import { useGetUserQuery } from "../../../store/slices/userSlice";
+import { useGetCurrentUserQuery } from "../../../store/slices/userSlice";
 
 
 export default function DashboardProducts() {
-  const { data: user } = useGetUserQuery()
+  const { data: user } = useGetCurrentUserQuery()
   const { products, isFetching } = useGetProductsQuery(undefined,
     {
       selectFromResult: ({ data }) => {

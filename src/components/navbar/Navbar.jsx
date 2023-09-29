@@ -4,31 +4,32 @@ import NavLink from "./NavLink";
 import { useDispatch, useSelector } from "react-redux";
 import { closeNav, toggleNav } from "../../store/slices/navigationSlice";
 import ShoppingCart from "../cart/shoppingCart/ShoppingCart";
-import { useGetUserQuery, useLogoutMutation } from "../../store/slices/userSlice";
+import { useGetCurrentUserQuery, useLogoutMutation } from "../../store/slices/userSlice";
+import ProfileImage from "../profile/profileImage/ProfileImage";
 
 
 export default function Navbar() {
   const show = useSelector((state) => state.nav.showMobileNav)
   const [showMiniNav, setShowMiniNav] = useState(false)
   const dispatch = useDispatch()
-  const { data: user } = useGetUserQuery()
+  const { data: user } = useGetCurrentUserQuery()
 
   const [logout] = useLogoutMutation()
 
 
   return (
-    <nav className="flex shadow-lg h-[75px]  items-end  px-4 pt-3 bg-slate-100 shadow-black pb-1 mb-20 z-50">
+    <nav className="flex shadow-lg max-h-[125px]  items-end  px-4 py-7 bg-slate-100 shadow-black pb-1 mb-20 z-50">
       <div id="nav-brand" className="mr-[100px]">
         <h4>ALL THE DUCKS</h4>
       </div>
 
 
-      <div>
+      <div className="flex justify-between w-full">
         <ul
           className={` ${show
-            ? "animate-fadein flex-col absolute top-[75px] right-0 bg-slate-200 w-full"
+            ? "animate-fadein flex-col absolute top-[95px] right-0 bg-slate-200 w-full "
             : "hidden"
-            } sm:flex`}>
+            } sm:flex justify-end items-end`}>
           <li className="">
             <NavLink to="/">Home</NavLink>
           </li>
@@ -38,47 +39,54 @@ export default function Navbar() {
           <li className="">
             <NavLink to="/about">About</NavLink>
           </li>
+
+
           {user &&
-          <>
-          <li className="sm:hidden">
-            <NavLink to={`/${user.id}/dashboard`}>Dashboard</NavLink>
-          </li>
-          <li className="sm:hidden">
-            <NavLink to='/profile' >Profile</NavLink>
-          </li>
-          <li onClick={() => logout()} className="sm:hidden">
-            <NavLink to='/' >Sign Out</NavLink>
-          </li>
-          </>
+            <>
+              <li className="sm:hidden">
+                <NavLink to={`/${user.id}/dashboard`}>Dashboard</NavLink>
+              </li>
+              <li className="sm:hidden">
+                <NavLink to={`/users/${user.id}/profile`} >Profile</NavLink>
+              </li>
+              <li onClick={() => logout()} className="sm:hidden">
+                <NavLink to='/' >Sign Out</NavLink>
+              </li>
+            </>
           }
-          <li className="ms-auto sm:absolute right-5  " onClick={() => dispatch(closeNav())}>
-            {!user && <Link to="/login">Sign In</Link>}
-            {user &&
-              <div onClick={() => setShowMiniNav(!showMiniNav)} className="hidden sm:flex rounded-full bg-red-500 w-16 h-16 sm:absolute -top-[38px] right-0 items-center justify-center flex p-0 cursor-pointer">
-                <h1 className="text-5xl font-extrabold text-white">{user.firstName[0]}</h1>
-              </div>
-            }
-            {showMiniNav &&
-              <ul onClick={() => setShowMiniNav(false)} className="sm:absolute bg-white p-6 w-52 rounded font-bold text-start top-[30px] -right-[3px]">
-                <li>
-                  <NavLink to={`/${user.id}/dashboard`}>Dashboard</NavLink>
-                </li>
-                <li>
-                  <NavLink to='/profile' >Profile</NavLink>
-                </li>
-                <li onClick={() => logout()}>
-                  <NavLink to='/sign-out' >Sign Out</NavLink>
-                </li>
-              </ul>
-            }
-          </li>
         </ul>
+        <div className="flex px-3 w-[200px] justify-between items-end">
+
+          <div>
+            <Link to={'/cart'}> <ShoppingCart /></Link>
+          </div>
+
+          {!user && <Link to="/login">Sign In</Link>}
+          {user &&
+            <div className='hidden sm:flex w-[80px] h-[80px] float-right cursor-pointer' onClick={() => setShowMiniNav(!showMiniNav)}>
+              <ProfileImage user={user} />
+            </div>
+
+          }
+          {showMiniNav &&
+            <ul onClick={() => setShowMiniNav(false)} className="sm:absolute bg-slate-300 p-6 w-52 rounded font-bold text-start top-[112px] -right-[3px]">
+              <li>
+                <NavLink to={`/${user.id}/dashboard`}>Dashboard</NavLink>
+              </li>
+              <li>
+                <NavLink to={`/users/${user.id}/profile`} >Profile</NavLink>
+              </li>
+              <li onClick={() => logout()}>
+                <NavLink to='/sign-out' >Sign Out</NavLink>
+              </li>
+            </ul>
+          }
+        </div>
+
       </div>
 
 
-      <Link to="/cart" className="ms-auto mr-20" >
-        <ShoppingCart />
-      </Link>
+
       <div
         onClick={() => dispatch(toggleNav())}
         className="hamburger sm:hidden flex flex-col justify-between h-[20px] w-[20px] ms-auto mb-3 border-black z-">

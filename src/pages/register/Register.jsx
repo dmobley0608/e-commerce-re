@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { useGetUserQuery, useLoginMutation, useRegisterUserMutation } from '../../store/slices/userSlice'
+import { useGetCurrentUserQuery, useLoginMutation, useRegisterUserMutation } from '../../store/slices/userSlice'
 import Loading from '../../components/loading/Loading'
 import TextInput from '../../components/inputs/TextInput'
 import SubmitInput from '../../components/inputs/SubmitInput'
@@ -11,7 +11,7 @@ export const Register = () => {
   const [registerUser, { isLoading }] = useRegisterUserMutation()
   const [registrationErrors, setRegistrationErrors] = useState([])
   const [login] = useLoginMutation()
-  const {data:user, isFetching} = useGetUserQuery()
+  const {data:user, isFetching} = useGetCurrentUserQuery()
   const nav = useNavigate()
 
   const onSubmit = async data => { 

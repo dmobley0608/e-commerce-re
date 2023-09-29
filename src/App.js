@@ -13,6 +13,7 @@ import Cart from './pages/cart/Cart';
 import DashboardLayout from './[layouts]/DashboardLayout';
 import Dashboard from './pages/dasboard/Dashboard';
 import DashboardProducts from './pages/dasboard/products/DashboardProducts';
+import Profile from './pages/profile/Profile';
 
 
 
@@ -31,8 +32,9 @@ const router = createBrowserRouter(
       <Route path='/cart' element={<Cart />} />
       <Route path='/:user/dashboard' element={<DashboardLayout/>}>
             <Route path='' element={<Dashboard/>}/>
-            <Route path='products' element={<DashboardProducts/>}/>
+            <Route path='products' element={<DashboardProducts/>}/>          
       </Route>
+      <Route path='/users/:id/profile' element={<Profile/>}/>
       <Route path="/sign-out" element={<Homepage/>}/>
     </Route>
   ))

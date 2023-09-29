@@ -30,6 +30,7 @@ app.use(passport.authenticate('session'))
 app.use("/api/products", productRouter)
 app.use("/api/users", userRouter)
 
+
 //Redirect To Frontend
 app.use('/*', (req,res)=>{   
     console.log("Sending Request To Client")

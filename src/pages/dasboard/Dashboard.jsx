@@ -1,9 +1,9 @@
 import React from 'react'
-import { useGetUserQuery } from '../../store/slices/userSlice';
+import { useGetCurrentUserQuery } from '../../store/slices/userSlice';
 import { useGetProductsQuery } from '../../store/slices/productsSlice';
 
 export default function Dashboard() {
-  const { data: user } = useGetUserQuery()
+  const { data: user } = useGetCurrentUserQuery()
   const messages = false
   const { products, isFetching } = useGetProductsQuery(undefined,
     {

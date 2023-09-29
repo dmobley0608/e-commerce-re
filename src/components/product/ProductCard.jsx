@@ -9,14 +9,14 @@ export const ProductCard = ({product}) => {
 
   return (
     <div className={ProductCardStyles.card}>
-        <Link to={`${product.id}`} className={ProductCardStyles.cardHeader}>
+        <Link to={`/products/${product.id}`} className={ProductCardStyles.cardHeader}>
             <img src={images[0].url} alt={title} /> 
         </Link>
         <div className={ProductCardStyles.cardBody}>
             <h2 className={ProductCardStyles.cardTitle}>{title}</h2>            
             <h4>${price}</h4>
             <h4>{quantity === 0 ?"Out of Stock" :quantity < 10 ?`Only ${quantity} in stock`: `${quantity} In Stock`}</h4>
-            <h5 className='text-xs'>Seller: {product.user.firstName[0]}. {product.user.lastName}</h5>
+            <Link to={`/users/${product.user.id}/profile`} className='text-xs'>Seller: {product.user.firstName[0]}. {product.user.lastName}</Link>
         </div>
         <CartItemHandler product={product}/>       
        

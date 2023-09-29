@@ -1,15 +1,23 @@
 const bcrypt = require('bcrypt')
 const prisma = require("../prisma/PrismaClient")
 
-exports.getUser = (req, res) => {
+exports.getUser = async(req, res) => {
     console.log("fetching user")
     try{
-        const user = req.session.passport.user
-        if (user) return res.status(200).json(user)
+        const user = await prisma.user.findUnique({where:{id:req.user.id}, include:{profileImage:true}})
+        const {password, ...safeData} = user
+        if (user) return res.status(200).json(safeData)
     }catch(err){
         return res.status(200).json(null)
     } 
   
+}
+
+exports.getUserById = async(req,res)=>{
+    console.log(`Fetching User: ${req.params.id}`)
+    const user = await prisma.user.findUnique({where:{id:req.params.id}, include:{profileImage:true}})
+    if(user) return res.status(200).json(user)
+    return res.status(404).json("User Not Found")
 }
 
 exports.register = async (req, res) => {
@@ -31,6 +39,11 @@ exports.register = async (req, res) => {
 
 exports.login = (req, res) => {
     res.status(200).json(req.session.passport.user)
+}
+
+exports.loginGoogle=(req, res, next)=>{
+    console.log(req.user)
+   res.redirect(`/${req.user.id}/dashboard`)
 }
 
 exports.logout = (req, res) => {

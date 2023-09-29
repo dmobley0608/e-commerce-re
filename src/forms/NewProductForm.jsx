@@ -5,12 +5,12 @@ import NumberInput from '../components/inputs/NumberInput'
 import SubmitInput from '../components/inputs/SubmitInput'
 import Loading from '../components/loading/Loading'
 import { useAddProductMutation } from '../store/slices/productsSlice'
-import { useGetUserQuery } from '../store/slices/userSlice'
+import { useGetCurrentUserQuery } from '../store/slices/userSlice'
 
 export default function NewProductForm({ setShow }) {
     const { register, handleSubmit,  formState: { errors } } = useForm()
     const [addProduct, {isLoading}] = useAddProductMutation()
-    const {data:user} = useGetUserQuery()
+    const {data:user} = useGetCurrentUserQuery()
 
 
     const onSubmit = async (data) => {    

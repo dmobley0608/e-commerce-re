@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { useGetUserQuery } from '../../../store/slices/userSlice'
+import { useGetCurrentUserQuery } from '../../../store/slices/userSlice'
 
 export default function Sidebar() {
     const [open, setOpen] = useState(false)
     const { pathname } = useLocation()
-    const { data: user } = useGetUserQuery()
+    const { data: user } = useGetCurrentUserQuery()
 
 
     //Set Active Link Style
@@ -36,12 +36,14 @@ export default function Sidebar() {
                 <li className={setStyle('/')} onClick={() => setOpen(!open)}>
                     <Link to="/" >Dashboard </Link>
                 </li>
+                
                 <li className={setStyle('products')} onClick={() => setOpen(!open)}>
                     <Link to="products" >Products </Link>
                 </li>
                 <li className={setStyle('transactions')} onClick={() => setOpen(!open)}>
                     <Link to="transactions" >Transactions </Link>
                 </li>
+
                 {user.role === "ADMIN" &&
                     <li className={setStyle('users')} onClick={() => setOpen(!open)}>
                         <Link to="users" >Users </Link>

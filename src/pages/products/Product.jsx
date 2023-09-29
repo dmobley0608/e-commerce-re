@@ -1,6 +1,6 @@
 import React from 'react'
 import { useGetProductByIdQuery } from '../../store/slices/productsSlice'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import {  useSelector } from 'react-redux'
 import CartItemHandler from '../../components/cart/cartHandler/CartItemHandler'
 
@@ -8,9 +8,10 @@ import CartItemHandler from '../../components/cart/cartHandler/CartItemHandler'
 export default function Product() {
     let { id } = useParams()
     
-    const { data, isLoading, error } = useGetProductByIdQuery(id)
-    const { title, description, price, quantity, images } = data || ""
-    const cartItem = useSelector((state)=>state.cart.items.filter(item=>item.id === data.id)[0])
+    const { data:product, isLoading, error } = useGetProductByIdQuery(id)
+    const { title, description, price, quantity, images } = product || ""
+    const cartItem = useSelector((state)=>state.cart.items.filter(item=>item.id === product.id)[0])
+    console.log(product)
     return (
         <div>
             {isLoading ? "Loading" : error ? "Error" :
@@ -20,10 +21,10 @@ export default function Product() {
                     <p className='font-extrabold'>{!cartItem ?`Unit Price: $${price.toFixed(2)}`: `Cart Price: $${(price * cartItem.quantity).toFixed(2)}`}</p>
                     <h6 className='bg-gray '>{quantity} IN STOCK</h6> 
                     <div className='flex w-[75px] justify-between m-3'>                                         
-                    <CartItemHandler product={data} />
+                    <CartItemHandler product={product} />
                     </div>
                     <h3><strong>Description: <br/></strong> {description}</h3>
-                    <h3><strong>Seller: </strong> {data.user.firstName} {data.user.lastName}</h3>
+                    <Link to={`/users/${product.userId}/profile`} className='text-xs'>Seller: {product.user.firstName[0]}. {product.user.lastName}</Link>
                    
                     
                 </div>}
